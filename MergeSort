@@ -1,0 +1,82 @@
+import java.util.Scanner;
+
+public class MergeSort {
+
+    // Método que gerencia a recursão do Merge Sort
+    public static void ordenar(int[] vetor, int inicio, int fim) {
+        if (inicio < fim) {
+            int meio = (inicio + fim) / 2;
+            ordenar(vetor, inicio, meio);
+            ordenar(vetor, meio + 1, fim);
+            intercalar(vetor, inicio, meio, fim);
+        }
+    }
+
+    // Junta duas partes já ordenadas
+    public static void intercalar(int[] vetor, int inicio, int meio, int fim) {
+        int tamanhoEsquerda = meio - inicio + 1;
+        int tamanhoDireita = fim - meio;
+
+        int[] parteEsquerda = new int[tamanhoEsquerda];
+        int[] parteDireita = new int[tamanhoDireita];
+
+        System.arraycopy(vetor, inicio, parteEsquerda, 0, tamanhoEsquerda);
+        System.arraycopy(vetor, meio + 1, parteDireita, 0, tamanhoDireita);
+
+        int i = 0, j = 0, k = inicio;
+
+        while (i < tamanhoEsquerda && j < tamanhoDireita) {
+            if (parteEsquerda[i] <= parteDireita[j]) {
+                vetor[k] = parteEsquerda[i];
+                i++;
+            } else {
+                vetor[k] = parteDireita[j];
+                j++;
+            }
+            k++;
+        }
+
+        while (i < tamanhoEsquerda) {
+            vetor[k] = parteEsquerda[i];
+            i++;
+            k++;
+        }
+
+        while (j < tamanhoDireita) {
+            vetor[k] = parteDireita[j];
+            j++;
+            k++;
+        }
+    }
+
+    // Mostra
+    // os elementos do vetor
+    public static void mostrar(int[] vetor) {
+        for (int valor : vetor) {
+            System.out.print(valor + " ");
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+
+        final int TAMANHO = 10;
+        int[] numeros = new int[TAMANHO];
+
+        System.out.println("Informe " + TAMANHO + " números:");
+        for (int i = 0; i < TAMANHO; i++) {
+            numeros[i] = entrada.nextInt();
+        }
+
+        System.out.println("\nVetor original:");
+        mostrar(numeros);
+
+        ordenar(numeros, 0, numeros.length - 1);
+
+        System.out.println("Vetor ordenado (Merge Sort):");
+        mostrar(numeros);
+
+        entrada.close();
+    }
+}
