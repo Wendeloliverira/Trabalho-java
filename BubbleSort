@@ -1,0 +1,57 @@
+import java.util.Scanner;
+
+public class BubbleSort {
+
+    // Método responsável por ordenar usando Bubble Sort
+    public static void ordenar(int[] vetor) {
+        int tamanho = vetor.length;
+        boolean houveTroca;
+
+        for (int i = 0; i < tamanho - 1; i++) {
+            houveTroca = false;
+
+            for (int j = 0; j < tamanho - 1 - i; j++) {
+                if (vetor[j] > vetor[j + 1]) {
+                    int auxiliar = vetor[j];
+                    vetor[j] = vetor[j + 1];
+                    vetor[j + 1] = auxiliar;
+                    houveTroca = true;
+                }
+            }
+
+            if (!houveTroca) {
+                break; 
+            }
+        }
+    }
+
+    // Método para exibir os elementos do vetor
+    public static void mostrar(int[] vetor) {
+        for (int valor : vetor) {
+            System.out.print(valor + " ");
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+
+        final int TAMANHO = 10;
+        int[] numeros = new int[TAMANHO];
+
+        System.out.println("Informe " + TAMANHO + " números inteiros:");
+        for (int i = 0; i < TAMANHO; i++) {
+            numeros[i] = entrada.nextInt();
+        }
+
+        System.out.println("\nVetor original:");
+        mostrar(numeros);
+
+        ordenar(numeros);
+
+        System.out.println("Vetor ordenado com Bubble Sort:");
+        mostrar(numeros);
+
+        entrada.close();
+    }
+}
